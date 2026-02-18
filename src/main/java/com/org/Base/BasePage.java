@@ -47,7 +47,7 @@ public class BasePage {
 
 
     /**
-     * Click on element
+     * Click on element wrapper
      */
     protected void click(By locator) {
         logger.info("Clicking on element: " + locator);
