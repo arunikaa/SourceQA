@@ -10,17 +10,25 @@ import org.testng.annotations.Test;
 
 public class LoginTest extends com.org.Base.BaseTest {
 
-    @Test(description = "login to the system with valid username and password",
+    @Test(priority=1 ,description = "login to the system with valid username and password",
             dataProvider = "loginData", dataProviderClass = Util.class)
-    public void loginUser(LoginTestData testData){
+    public void loginUser(LoginTestData testData) {
         LogInPage lp = new LogInPage(driver);
         ProductsPage pr = new ProductsPage(driver);
         lp.enterUsername(testData.getUsername());
         lp.enterPassword(testData.getPassword());
         lp.clickLogIn();
-        Assert.assertNotNull(pr.checkProductsAvailability(),"Value should not be null");
-        Assert.assertNotNull(pr.checkNumberOfProductsAvailable(),"No products available");
+        Assert.assertNotNull(pr.checkProductsAvailability(), "Value should not be null");
+        pr.checkNumberOfProductsAvailable();
+    }
+
+
+    @Test(priority=2, description = "Add 2 products to the shopping card", dataProvider = "loginData", dataProviderClass = Util.class)
+    public void addProducts(){
+
+        ProductsPage pr = new ProductsPage(driver);
         pr.addFirstNProductsToCart(2);
+        Assert.assertEquals(pr.getItemsInCart(),2, "Cart should have two items");
 
     }
 }
