@@ -5,6 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.*;
 
 
@@ -26,7 +28,25 @@ public class BaseTest {
     public void setUp() {
 
         logger.info("Launching browser");
-        driver = new ChromeDriver();   // Selenium Manager works here
+        String browser = Util.get("browser");
+        logger.info("Browser selected: {}", browser);
+        switch (browser){
+            case "chrome":
+                driver = new ChromeDriver();            // Selenium Manager auto-handles driver
+                break;
+            case "firefox":
+                driver = new FirefoxDriver();
+                break;
+            case "edge":
+                driver = new EdgeDriver();
+                break;
+            default:
+                throw new IllegalArgumentException(
+                        "Browser '" + browser + "' is not supported. " +
+                                "Valid values: chrome, firefox, edge"
+                );
+        }
+
         driver.manage().window().maximize();
         driver.get(Util.get("base.url"));
 

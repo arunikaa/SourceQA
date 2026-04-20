@@ -32,7 +32,7 @@ public class BasePage {
      * Wait for element to be visible
      */
     protected WebElement waitForElementVisible(By locator) {
-        logger.info("Waiting for element to be visible: " + locator);
+        logger.info("Waiting for element to be visible:{}", locator);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
@@ -41,7 +41,7 @@ public class BasePage {
      * Wait for element to be clickable
      */
     protected WebElement waitForElementClickable(By locator) {
-        logger.info("Waiting for element to be clickable: " + locator);
+        logger.info("Waiting for element to be clickable: {}", locator);
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
@@ -50,7 +50,7 @@ public class BasePage {
      * Click on element wrapper
      */
     protected void click(By locator) {
-        logger.info("Clicking on element: " + locator);
+        logger.info("Clicking on element: {}", locator);
         waitForElementClickable(locator).click();
     }
 
@@ -58,7 +58,7 @@ public class BasePage {
      * Click using JavaScript
      */
     protected void clickUsingJS(By locator) {
-        logger.info("Clicking on element using JavaScript: " + locator);
+        logger.info("Clicking on element using JavaScript: {}", locator);
         WebElement element = waitForElementVisible(locator);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();", element);
@@ -68,7 +68,7 @@ public class BasePage {
      * Enter text in input field
      */
     protected void enterText(By locator, String text) {
-        logger.info("Entering text '" + text + "' in element: " + locator);
+        logger.info("Entering text '{}' in element: {}", text, locator);
         WebElement element = waitForElementVisible(locator);
         element.clear();
         element.sendKeys(text);
@@ -80,7 +80,7 @@ public class BasePage {
      */
 
     protected void enterKeyboardEvents(By locator, Keys event) {
-        logger.info("Enter key board event" + event);
+        logger.info("Enter key board event{}", event);
         WebElement element = driver.findElement(locator);
         element.sendKeys(event);
     }
